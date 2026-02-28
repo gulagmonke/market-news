@@ -247,24 +247,66 @@ const FEEDS = [
   { url: 'https://www.kitco.com/rss/news.xml',                           source: 'Kitco Gold',       category: 'mover'    },
 ];
 
-const MACRO_KEYWORDS = [
-  'fed','federal reserve','interest rate','inflation','cpi','ppi','gdp','jobs',
-  'unemployment','payroll','treasury','yield','bond','tariff','trade','deficit',
-  'currency','dollar','euro','yen','ecb','boe','central bank','recession',
-  'monetary','fiscal','policy','economic','economy','powell','fomc','rate cut','rate hike'
+// Macro = broad economic/policy news. High-weight terms score 2, rest score 1.
+const MACRO_HIGH = [
+  'federal reserve','interest rate','rate cut','rate hike','fomc','jerome powell',
+  'inflation','cpi','ppi','pce','gdp','unemployment rate','nonfarm payroll',
+  'central bank','ecb','bank of england','bank of japan','monetary policy',
+  'fiscal policy','recession','stagflation','treasury yield','yield curve',
+  'trade war','tariff','sanctions','national debt','federal deficit',
 ];
-const CATALYST_KEYWORDS = [
-  'earnings','revenue','guidance','acquisition','merger','ipo','deal','lawsuit',
-  'regulatory','fda','sec','investigation','recall','launch','partnership','upgrade',
-  'downgrade','analyst','rating','buyback','dividend','ceo','bankruptcy','settlement',
-  'approval','contract','beats','misses','raises','lowers','outlook','forecast'
+const MACRO_LOW = [
+  'fed','economy','economic','jobs report','labor market','consumer spending',
+  'retail sales','housing starts','industrial output','trade deficit','trade surplus',
+  'dollar index','euro','yen','sterling','emerging markets','imf','world bank','oecd',
 ];
-const MOVER_KEYWORDS = [
-  'stock','shares','rally','surge','plunge','drops','gains','falls','climbs',
-  'tumbles','soars','nasdaq','s&p','dow','russell','etf','options','short',
-  'squeeze','volume','crypto','bitcoin','ethereum','oil','gold','silver',
-  'commodities','futures','sector','index','52-week','premarket','after-hours','nyse'
+
+// Catalyst = company-specific events that move a stock
+const CATALYST_HIGH = [
+  'earnings beat','earnings miss','raised guidance','lowered guidance','eps beats',
+  'revenue beat','revenue miss','merger','acquisition','takeover','buyout',
+  'ipo','spin-off','fda approval','fda rejection','sec charges','sec investigation',
+  'class action','antitrust','bankruptcy','chapter 11','debt restructuring',
+  'ceo fired','ceo resigns','ceo appointed','activist investor','share buyback',
 ];
+const CATALYST_LOW = [
+  'earnings','quarterly results','annual results','dividend','analyst upgrade',
+  'analyst downgrade','price target','rating change','guidance','outlook','forecast',
+  'partnership','contract win','product launch','regulatory approval','recall',
+  'lawsuit','settlement','fine','penalty','stake acquired',
+];
+
+// Mover = price action, market moves, specific stocks/assets moving
+const MOVER_HIGH = [
+  'all-time high','record high','52-week high','52-week low','all-time low',
+  'surges','plunges','soars','tumbles','jumps','crashes','spikes','collapses',
+  'short squeeze','short seller','most shorted','heavily shorted',
+  'premarket','after-hours','aftermarket',
+  'bitcoin','ethereum','crypto rally','crypto selloff',
+  'oil prices','crude oil','gold prices','silver prices',
+  's&p 500','nasdaq composite','dow jones','russell 2000',
+];
+const MOVER_LOW = [
+  'stock','shares','rally','selloff','volatility','vix','volume surge',
+  'etf','options','futures','index','sector','market cap',
+  'wall street','nyse','nasdaq','trading','investors','hedge fund',
+  'gold','silver','oil','crypto','bitcoin','commodity',
+];
+
+function classifyArticle(title, description) {
+  const text = (title + ' ' + (description || '')).toLowerCase();
+  let ms = 0, cs = 0, vs = 0;
+  MACRO_HIGH.forEach(kw    => { if (text.includes(kw)) ms += 2; });
+  MACRO_LOW.forEach(kw     => { if (text.includes(kw)) ms += 1; });
+  CATALYST_HIGH.forEach(kw => { if (text.includes(kw)) cs += 2; });
+  CATALYST_LOW.forEach(kw  => { if (text.includes(kw)) cs += 1; });
+  MOVER_HIGH.forEach(kw    => { if (text.includes(kw)) vs += 2; });
+  MOVER_LOW.forEach(kw     => { if (text.includes(kw)) vs += 1; });
+  // Macro wins ties — hardest category to fill from general feeds
+  if (ms > 0 && ms >= cs && ms >= vs) return 'macro';
+  if (cs >= vs) return 'catalyst';
+  return 'mover';
+}
 
 let lifetimeArticles = parseInt(localStorage.getItem('briefing_lifetime') || '0');
 let sessionArticles  = 0;
@@ -307,16 +349,7 @@ function formatTime(dateStr) {
   return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
 }
 
-function classifyArticle(title, description) {
-  const text = (title + ' ' + (description||'')).toLowerCase();
-  let ms=0, cs=0, vs=0;
-  MACRO_KEYWORDS.forEach(kw    => { if (text.includes(kw)) ms++; });
-  CATALYST_KEYWORDS.forEach(kw => { if (text.includes(kw)) cs++; });
-  MOVER_KEYWORDS.forEach(kw   => { if (text.includes(kw)) vs++; });
-  if (ms >= cs && ms >= vs) return 'macro';
-  if (cs >= vs) return 'catalyst';
-  return 'mover';
-}
+
 
 function stripHtml(str) {
   if (!str) return '';
