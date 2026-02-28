@@ -19,7 +19,6 @@
     --text-bright: #e6edf3;
     --live: #00ff88;
     --dead: #ff4444;
-    --warn: #ff9500;
     --macro: #00d4ff;
     --catalyst: #ff9500;
     --mover: #bf5af2;
@@ -74,43 +73,6 @@
   .refresh-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   main { padding: 20px 24px; max-width: 1600px; margin: 0 auto; }
 
-  /* API KEY SETUP BANNER */
-  .setup-banner {
-    border: 1px solid var(--warn);
-    background: rgba(255,149,0,0.06);
-    padding: 16px 20px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .setup-banner.hidden { display: none; }
-  .setup-text { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--text-bright); line-height: 1.6; }
-  .setup-text a { color: var(--warn); text-decoration: none; }
-  .setup-text a:hover { text-decoration: underline; }
-  .setup-input-row { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
-  .setup-input {
-    background: var(--surface2); border: 1px solid var(--border-bright);
-    color: var(--text-bright); font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px; padding: 6px 12px; width: 280px; outline: none;
-  }
-  .setup-input:focus { border-color: var(--accent); }
-  .setup-save {
-    background: var(--accent); border: none; color: var(--bg);
-    font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
-    letter-spacing: 0.08em; padding: 6px 14px; cursor: pointer; white-space: nowrap;
-  }
-  .setup-save:hover { opacity: 0.85; }
-  .setup-clear {
-    background: transparent; border: 1px solid var(--border); color: var(--text-dim);
-    font-family: 'IBM Plex Mono', monospace; font-size: 10px;
-    padding: 5px 10px; cursor: pointer;
-  }
-  .setup-clear:hover { border-color: var(--dead); color: var(--dead); }
-
-  /* BRIEFING */
   .briefing-section { margin-bottom: 20px; border: 1px solid var(--border); background: var(--surface); }
   .section-header {
     padding: 8px 16px; border-bottom: 1px solid var(--border);
@@ -132,10 +94,9 @@
   }
   .briefing-tag:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* COLUMNS */
   .columns { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
   @media (max-width: 1100px) { .columns { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 700px)  { .columns { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) { .columns { grid-template-columns: 1fr; } }
   .col { border: 1px solid var(--border); background: var(--surface); display: flex; flex-direction: column; }
   .col.macro    .section-label  { color: var(--macro); }
   .col.macro    .section-header { background: rgba(0,212,255,0.04); border-bottom-color: rgba(0,212,255,0.15); }
@@ -145,13 +106,12 @@
   .col.mover    .section-header { background: rgba(191,90,242,0.04); border-bottom-color: rgba(191,90,242,0.15); }
   .col-body { padding: 0; flex: 1; overflow-y: auto; max-height: 560px; min-height: 200px; }
 
-  /* ARTICLES */
   .article { padding: 11px 14px; border-bottom: 1px solid var(--border); transition: background 0.15s; }
   .article:last-child { border-bottom: none; }
   .article:hover { background: rgba(255,255,255,0.03); }
   .article a { text-decoration: none; display: block; }
   .article-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; gap: 8px; }
-  .article-source { font-size: 10px; letter-spacing: 0.06em; font-weight: 600; text-transform: uppercase; opacity: 0.8; white-space: nowrap; }
+  .article-source { font-size: 10px; letter-spacing: 0.06em; font-weight: 600; text-transform: uppercase; opacity: 0.75; white-space: nowrap; }
   .macro    .article-source { color: var(--macro); }
   .catalyst .article-source { color: var(--catalyst); }
   .mover    .article-source { color: var(--mover); }
@@ -163,7 +123,6 @@
   .article-headline:hover { color: var(--accent); }
   .article-snippet { font-size: 11px; color: var(--text-dim); margin-top: 3px; line-height: 1.5; font-family: 'IBM Plex Sans', sans-serif; }
 
-  /* SKELETON */
   .skeleton {
     background: linear-gradient(90deg, var(--surface2) 25%, var(--border) 50%, var(--surface2) 75%);
     background-size: 200% 100%; animation: shimmer 1.5s infinite;
@@ -171,7 +130,6 @@
   }
   @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-  /* FOOTER */
   footer {
     border: 1px solid var(--border); background: var(--surface);
     padding: 12px 24px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
@@ -185,7 +143,7 @@
   .sources-list { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
   .source-chip { font-size: 9px; padding: 2px 8px; border: 1px solid var(--border); color: var(--text-dim); letter-spacing: 0.06em; text-transform: uppercase; }
   .count-badge { font-size: 10px; padding: 1px 7px; background: var(--border); color: var(--text-dim); border-radius: 2px; }
-  .no-articles { padding: 20px 14px; color: var(--text-dim); font-size: 11px; font-family: 'IBM Plex Sans', sans-serif; }
+  .no-articles { padding: 20px 14px; color: var(--text-dim); font-size: 11px; }
 </style>
 </head>
 <body>
@@ -206,57 +164,39 @@
 </header>
 
 <main>
-
-  <!-- API KEY SETUP -->
-  <div class="setup-banner" id="setupBanner">
-    <div class="setup-text">
-      <strong style="color:var(--warn)">⚠ NEWSAPI KEY REQUIRED</strong> — Free at
-      <a href="https://newsapi.org/register" target="_blank">newsapi.org/register</a>
-      (100 req/day, no credit card needed). Key is saved locally in your browser — never sent anywhere except NewsAPI.
-    </div>
-    <div class="setup-input-row">
-      <input class="setup-input" id="apiKeyInput" type="password" placeholder="Paste your NewsAPI key…" />
-      <button class="setup-save" onclick="saveKey()">SAVE &amp; LOAD</button>
-      <button class="setup-clear" onclick="clearKey()" title="Clear saved key">✕</button>
-    </div>
-  </div>
-
-  <!-- Daily Briefing -->
   <div class="briefing-section">
     <div class="section-header">
       <div class="section-label">◈ DAILY BRIEFING</div>
       <span id="briefingTime" style="font-size:10px;color:var(--text-dim)"></span>
     </div>
-    <div class="briefing-content loading" id="briefingContent">Enter your NewsAPI key above to begin.</div>
+    <div class="briefing-content loading" id="briefingContent">Fetching live feeds...</div>
     <div class="briefing-headlines" id="briefingTags"></div>
   </div>
 
-  <!-- Three Columns -->
   <div class="columns">
     <div class="col macro">
       <div class="section-header">
         <div class="section-label">◈ MACROECONOMIC</div>
         <span class="count-badge" id="macroCount">—</span>
       </div>
-      <div class="col-body" id="macroBody"><div class="no-articles">Awaiting data…</div></div>
+      <div class="col-body" id="macroBody"><div class="no-articles">Loading...</div></div>
     </div>
     <div class="col catalyst">
       <div class="section-header">
         <div class="section-label">◈ CATALYSTS &amp; EVENTS</div>
         <span class="count-badge" id="catalystCount">—</span>
       </div>
-      <div class="col-body" id="catalystBody"><div class="no-articles">Awaiting data…</div></div>
+      <div class="col-body" id="catalystBody"><div class="no-articles">Loading...</div></div>
     </div>
     <div class="col mover">
       <div class="section-header">
         <div class="section-label">◈ MARKET MOVERS</div>
         <span class="count-badge" id="moverCount">—</span>
       </div>
-      <div class="col-body" id="moverBody"><div class="no-articles">Awaiting data…</div></div>
+      <div class="col-body" id="moverBody"><div class="no-articles">Loading...</div></div>
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     <div class="stat">
       <div class="stat-label">Lifetime Articles</div>
@@ -269,7 +209,7 @@
     </div>
     <div class="footer-divider"></div>
     <div class="stat">
-      <div class="stat-label">Sources Active</div>
+      <div class="stat-label">Feeds Active</div>
       <div class="stat-value purple" id="feedsActive">0</div>
     </div>
     <div class="footer-divider"></div>
@@ -278,89 +218,58 @@
       <div class="sources-list" id="sourcesList"></div>
     </div>
   </footer>
-
 </main>
 
 <script>
-// ─── CONFIG ───────────────────────────────────────────────────────────────────
-// Uses NewsAPI.org /v2/everything endpoint.
-// Sources: Reuters, Bloomberg, WSJ, Financial Times, The Economist, CNBC,
-//          AP News, Fortune, Business Insider
-// Free tier: 100 req/day — we use exactly 3 requests per page load.
-// Key is stored only in localStorage, sent only to newsapi.org.
+// ─── FEEDS ────────────────────────────────────────────────────────────────────
+// All fetched via rss2json.com (free, no key, handles CORS).
+// Sources chosen for reliability and quality — tested to work through the proxy.
 // ─────────────────────────────────────────────────────────────────────────────
+const RSS2JSON = 'https://api.rss2json.com/v1/api.json?rss_url=';
 
-const TRUSTED_SOURCES = [
-  'reuters',
-  'bloomberg',
-  'the-wall-street-journal',
-  'financial-times',
-  'the-economist',
-  'cnbc',
-  'associated-press',
-  'fortune',
-  'business-insider',
-].join(',');
-
-const QUERIES = [
-  {
-    label:    'macro',
-    category: 'macro',
-    q: 'inflation OR "interest rates" OR "federal reserve" OR GDP OR "central bank" OR tariff OR "trade war" OR unemployment OR "treasury yields" OR "monetary policy"',
-  },
-  {
-    label:    'catalyst',
-    category: 'catalyst',
-    q: 'earnings OR merger OR acquisition OR IPO OR FDA OR SEC OR "CEO" OR "analyst upgrade" OR "analyst downgrade" OR guidance OR bankruptcy OR "strategic review"',
-  },
-  {
-    label:    'mover',
-    category: 'mover',
-    q: '"S&P 500" OR Nasdaq OR "Dow Jones" OR "market rally" OR "market selloff" OR "stock surge" OR "stock plunge" OR gold OR oil OR bitcoin OR "hedge fund" OR "short seller"',
-  },
+const FEEDS = [
+  // MACRO
+  { url: 'https://feeds.reuters.com/reuters/businessNews',               source: 'Reuters',          category: 'macro'    },
+  { url: 'https://feeds.reuters.com/reuters/marketsNews',                source: 'Reuters Markets',  category: 'macro'    },
+  { url: 'https://www.cnbc.com/id/15839069/device/rss/rss.html',        source: 'CNBC Economy',     category: 'macro'    },
+  { url: 'https://www.forexlive.com/feed/news',                          source: 'ForexLive',        category: 'macro'    },
+  { url: 'https://feeds.feedburner.com/calculatedrisk/',                 source: 'Calculated Risk',  category: 'macro'    },
+  { url: 'https://www.federalreserve.gov/feeds/press_all.xml',           source: 'Federal Reserve',  category: 'macro'    },
+  // CATALYST
+  { url: 'https://www.cnbc.com/id/10001147/device/rss/rss.html',        source: 'CNBC Earnings',    category: 'catalyst' },
+  { url: 'https://www.cnbc.com/id/10000664/device/rss/rss.html',        source: 'CNBC Tech',        category: 'catalyst' },
+  { url: 'https://techcrunch.com/feed/',                                  source: 'TechCrunch',       category: 'catalyst' },
+  // MOVER
+  { url: 'https://www.cnbc.com/id/20910258/device/rss/rss.html',        source: 'CNBC Markets',     category: 'mover'    },
+  { url: 'https://finance.yahoo.com/news/rssindex',                      source: 'Yahoo Finance',    category: 'mover'    },
+  { url: 'https://feeds.marketwatch.com/marketwatch/marketpulse/',       source: 'MarketWatch',      category: 'mover'    },
+  { url: 'https://feeds.marketwatch.com/marketwatch/topstories/',        source: 'MW Top Stories',   category: 'mover'    },
+  { url: 'https://www.kitco.com/rss/news.xml',                           source: 'Kitco Gold',       category: 'mover'    },
 ];
 
-const BASE_URL  = 'https://newsapi.org/v2/everything';
-const PAGE_SIZE = 30;
+const MACRO_KEYWORDS = [
+  'fed','federal reserve','interest rate','inflation','cpi','ppi','gdp','jobs',
+  'unemployment','payroll','treasury','yield','bond','tariff','trade','deficit',
+  'currency','dollar','euro','yen','ecb','boe','central bank','recession',
+  'monetary','fiscal','policy','economic','economy','powell','fomc','rate cut','rate hike'
+];
+const CATALYST_KEYWORDS = [
+  'earnings','revenue','guidance','acquisition','merger','ipo','deal','lawsuit',
+  'regulatory','fda','sec','investigation','recall','launch','partnership','upgrade',
+  'downgrade','analyst','rating','buyback','dividend','ceo','bankruptcy','settlement',
+  'approval','contract','beats','misses','raises','lowers','outlook','forecast'
+];
+const MOVER_KEYWORDS = [
+  'stock','shares','rally','surge','plunge','drops','gains','falls','climbs',
+  'tumbles','soars','nasdaq','s&p','dow','russell','etf','options','short',
+  'squeeze','volume','crypto','bitcoin','ethereum','oil','gold','silver',
+  'commodities','futures','sector','index','52-week','premarket','after-hours','nyse'
+];
 
-// ─── State ────────────────────────────────────────────────────────────────────
 let lifetimeArticles = parseInt(localStorage.getItem('briefing_lifetime') || '0');
 let sessionArticles  = 0;
-let apiKey           = localStorage.getItem('briefing_apikey') || '';
-
 document.getElementById('lifetimeArticles').textContent = lifetimeArticles;
 
-// ─── Key management ───────────────────────────────────────────────────────────
-function saveKey() {
-  const val = document.getElementById('apiKeyInput').value.trim();
-  if (!val) { alert('Please paste a valid NewsAPI key.'); return; }
-  apiKey = val;
-  localStorage.setItem('briefing_apikey', apiKey);
-  document.getElementById('setupBanner').classList.add('hidden');
-  fetchAll();
-}
-
-function clearKey() {
-  apiKey = '';
-  localStorage.removeItem('briefing_apikey');
-  document.getElementById('apiKeyInput').value = '';
-  document.getElementById('setupBanner').classList.remove('hidden');
-  document.getElementById('briefingContent').className = 'briefing-content loading';
-  document.getElementById('briefingContent').textContent = 'Enter your NewsAPI key above to begin.';
-  document.getElementById('briefingTags').innerHTML = '';
-  setStatus('dead');
-}
-
-if (apiKey) {
-  document.getElementById('setupBanner').classList.add('hidden');
-  document.getElementById('apiKeyInput').value = apiKey;
-}
-
-document.getElementById('apiKeyInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') saveKey();
-});
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
 function setStatus(state) {
   const ind = document.getElementById('statusIndicator');
   const txt = document.getElementById('statusText');
@@ -379,8 +288,8 @@ function showSkeletons(id) {
   document.getElementById(id).innerHTML = Array(5).fill(0).map(() => `
     <div class="article" style="pointer-events:none">
       <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-        <div class="skeleton" style="width:22%;height:9px"></div>
-        <div class="skeleton" style="width:16%;height:9px"></div>
+        <div class="skeleton" style="width:25%;height:9px"></div>
+        <div class="skeleton" style="width:18%;height:9px"></div>
       </div>
       <div class="skeleton" style="width:95%;height:11px"></div>
       <div class="skeleton" style="width:70%;height:11px;margin-top:4px"></div>
@@ -394,60 +303,106 @@ function formatTime(dateStr) {
   const diffMin = Math.floor((new Date() - d) / 60000);
   if (diffMin < 1)    return 'just now';
   if (diffMin < 60)   return `${diffMin}m ago`;
-  if (diffMin < 1440) { const h=Math.floor(diffMin/60), m=diffMin%60; return m?`${h}h ${m}m ago`:`${h}h ago`; }
+  if (diffMin < 1440) { const h=Math.floor(diffMin/60),m=diffMin%60; return m?`${h}h ${m}m ago`:`${h}h ago`; }
   return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+}
+
+function classifyArticle(title, description) {
+  const text = (title + ' ' + (description||'')).toLowerCase();
+  let ms=0, cs=0, vs=0;
+  MACRO_KEYWORDS.forEach(kw    => { if (text.includes(kw)) ms++; });
+  CATALYST_KEYWORDS.forEach(kw => { if (text.includes(kw)) cs++; });
+  MOVER_KEYWORDS.forEach(kw   => { if (text.includes(kw)) vs++; });
+  if (ms >= cs && ms >= vs) return 'macro';
+  if (cs >= vs) return 'catalyst';
+  return 'mover';
+}
+
+function stripHtml(str) {
+  if (!str) return '';
+  return str.replace(/<[^>]*>/g,'')
+            .replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+            .replace(/&nbsp;/g,' ').replace(/&#\d+;/g,'').trim();
 }
 
 function esc(s) {
   return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-// ─── Fetch one NewsAPI query ───────────────────────────────────────────────────
-async function fetchQuery(query) {
-  const params = new URLSearchParams({
-    q:        query.q,
-    sources:  TRUSTED_SOURCES,
-    sortBy:   'publishedAt',
-    pageSize: PAGE_SIZE,
-    language: 'en',
-    apiKey:   apiKey,
-  });
-
+// Parse raw XML as fallback
+function parseXml(xmlText, feed) {
   try {
-    const res  = await fetch(`${BASE_URL}?${params}`, { signal: AbortSignal.timeout(12000) });
-    const data = await res.json();
-
-    if (data.status === 'error') {
-      console.warn(`NewsAPI error [${query.label}]:`, data.message);
-      if (['apiKeyInvalid','apiKeyMissing','apiKeyDisabled'].includes(data.code)) {
-        document.getElementById('setupBanner').classList.remove('hidden');
-        document.getElementById('briefingContent').textContent = `API Error: ${data.message}`;
-      }
-      return [];
-    }
-
-    return (data.articles || [])
-      .filter(a => a.title && a.title !== '[Removed]' && a.url)
-      .map(a => ({
-        title:    a.title,
-        link:     a.url,
-        pubDate:  a.publishedAt || '',
-        snippet:  (a.description || '').slice(0, 130),
-        source:   a.source?.name || 'Unknown',
-        category: query.category,
-      }));
-
-  } catch(e) {
-    console.warn(`Fetch failed [${query.label}]:`, e.message);
-    return [];
-  }
+    const doc   = new DOMParser().parseFromString(xmlText, 'text/xml');
+    const items = Array.from(doc.querySelectorAll('item'));
+    return items.map(item => {
+      const get  = tag => item.querySelector(tag)?.textContent || '';
+      const title = stripHtml(get('title'));
+      const desc  = stripHtml(get('description') || get('content\\:encoded') || '');
+      return {
+        title,
+        link:     get('link') || get('guid'),
+        pubDate:  get('pubDate') || get('dc\\:date') || '',
+        snippet:  desc.slice(0, 120),
+        source:   feed.source,
+        category: classifyArticle(title, desc),
+      };
+    }).filter(a => a.title.length > 10);
+  } catch(e) { return []; }
 }
 
-// ─── Render ───────────────────────────────────────────────────────────────────
+async function fetchFeed(feed) {
+  const encoded = encodeURIComponent(feed.url);
+
+  // Attempt 1: rss2json
+  try {
+    const res  = await fetch(`${RSS2JSON}${encoded}&count=25`, { signal: AbortSignal.timeout(8000) });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.status === 'ok' && data.items?.length) {
+        return data.items.map(item => ({
+          title:    stripHtml(item.title || ''),
+          link:     item.link || item.guid || '#',
+          pubDate:  item.pubDate || '',
+          snippet:  stripHtml(item.description || item.content || '').slice(0, 120),
+          source:   feed.source,
+          category: classifyArticle(item.title, item.description || item.content),
+        })).filter(a => a.title.length > 10);
+      }
+    }
+  } catch(e) {}
+
+  // Attempt 2: allorigins (raw XML)
+  try {
+    const res = await fetch(`https://api.allorigins.win/get?url=${encoded}`, { signal: AbortSignal.timeout(10000) });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.contents) return parseXml(data.contents, feed);
+    }
+  } catch(e) {}
+
+  // Attempt 3: corsproxy.io
+  try {
+    const res = await fetch(`https://corsproxy.io/?${encoded}`, { signal: AbortSignal.timeout(10000) });
+    if (res.ok) return parseXml(await res.text(), feed);
+  } catch(e) {}
+
+  return [];
+}
+
+function dedup(articles) {
+  const seen = new Set();
+  return articles.filter(a => {
+    const key = a.title.toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,40);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 function renderColumn(containerId, articles) {
   const el = document.getElementById(containerId);
   if (!articles.length) {
-    el.innerHTML = '<div class="no-articles">No articles returned for this query.</div>';
+    el.innerHTML = '<div class="no-articles">No articles found.</div>';
     return;
   }
   el.innerHTML = articles.map(a => `
@@ -469,53 +424,43 @@ function buildBriefing(macro, catalyst, mover) {
   if (catalyst.length)  lines.push(`Key catalyst: ${catalyst[0].title}.`);
   if (mover.length)     lines.push(`Market action: ${mover[0].title}.`);
   if (mover.length > 1) lines.push(`Also watching: ${mover[1].title}.`);
-
   document.getElementById('briefingContent').className = 'briefing-content';
-  document.getElementById('briefingContent').textContent = lines.join('  ') || 'No headlines loaded.';
-
-  const top = [...macro.slice(0,3), ...catalyst.slice(0,2), ...mover.slice(0,3)];
-  document.getElementById('briefingTags').innerHTML = top.slice(0,8).map(a =>
-    `<a href="${esc(a.link)}" target="_blank" rel="noopener" class="briefing-tag">${esc(a.title.length>65 ? a.title.slice(0,62)+'…' : a.title)}</a>`
+  document.getElementById('briefingContent').textContent = lines.join(' ') || 'No headlines loaded.';
+  const all = [...macro.slice(0,3), ...catalyst.slice(0,2), ...mover.slice(0,3)];
+  document.getElementById('briefingTags').innerHTML = all.slice(0,8).map(a =>
+    `<a href="${esc(a.link)}" target="_blank" rel="noopener" class="briefing-tag">${esc(a.title.length>60?a.title.slice(0,57)+'…':a.title)}</a>`
   ).join('');
-
   document.getElementById('briefingTime').textContent =
     new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
 }
 
 function animateCount(id, target) {
-  const el    = document.getElementById(id);
+  const el = document.getElementById(id);
   const start = parseInt(el.textContent) || 0;
   const diff  = target - start;
   let i = 0;
-  const iv = setInterval(() => {
-    i++;
-    el.textContent = Math.round(start + diff * i / 20);
-    if (i >= 20) clearInterval(iv);
-  }, 25);
+  const iv = setInterval(() => { i++; el.textContent = Math.round(start + diff * i / 20); if (i>=20) clearInterval(iv); }, 25);
 }
 
-// ─── Main ─────────────────────────────────────────────────────────────────────
 async function fetchAll() {
-  if (!apiKey) {
-    document.getElementById('setupBanner').classList.remove('hidden');
-    document.getElementById('briefingContent').textContent = 'Enter your NewsAPI key above to begin.';
-    return;
-  }
-
   const btn = document.getElementById('refreshBtn');
   btn.disabled = true; btn.textContent = '◌ LOADING';
   setStatus('loading');
   ['macroBody','catalystBody','moverBody'].forEach(showSkeletons);
   document.getElementById('briefingContent').className = 'briefing-content loading';
-  document.getElementById('briefingContent').textContent = 'Fetching from Reuters, Bloomberg, FT, WSJ…';
+  document.getElementById('briefingContent').textContent = 'Fetching live feeds…';
   document.getElementById('briefingTags').innerHTML = '';
 
-  // 3 parallel requests — well within 100/day free limit
-  const [macro, catalyst, mover] = await Promise.all(QUERIES.map(fetchQuery));
+  const results = await Promise.all(FEEDS.map(fetchFeed));
+  const flat    = dedup(results.flat()).sort((a,b) => new Date(b.pubDate) - new Date(a.pubDate));
 
-  renderColumn('macroBody',    macro);
-  renderColumn('catalystBody', catalyst);
-  renderColumn('moverBody',    mover);
+  const macro    = flat.filter(a => a.category === 'macro');
+  const catalyst = flat.filter(a => a.category === 'catalyst');
+  const mover    = flat.filter(a => a.category === 'mover');
+
+  renderColumn('macroBody',    macro.slice(0,30));
+  renderColumn('catalystBody', catalyst.slice(0,30));
+  renderColumn('moverBody',    mover.slice(0,30));
 
   document.getElementById('macroCount').textContent    = macro.length;
   document.getElementById('catalystCount').textContent = catalyst.length;
@@ -523,30 +468,29 @@ async function fetchAll() {
 
   buildBriefing(macro, catalyst, mover);
 
-  const total = macro.length + catalyst.length + mover.length;
+  const total = flat.length;
   sessionArticles  += total;
   lifetimeArticles += total;
   localStorage.setItem('briefing_lifetime', lifetimeArticles);
   animateCount('lifetimeArticles', lifetimeArticles);
   animateCount('sessionArticles',  sessionArticles);
 
-  const allSources = [...new Set([...macro,...catalyst,...mover].map(a => a.source))].sort();
-  animateCount('feedsActive', allSources.length);
+  const activeSources = [...new Set(flat.map(a => a.source))];
+  animateCount('feedsActive', activeSources.length);
   document.getElementById('sourcesList').innerHTML =
-    allSources.map(s => `<span class="source-chip">${esc(s)}</span>`).join('');
+    activeSources.map(s => `<span class="source-chip">${esc(s)}</span>`).join('');
 
   setStatus(total > 0 ? 'live' : 'dead');
   if (total === 0) {
     document.getElementById('briefingContent').textContent =
-      'No articles returned. Check your API key, or you may have hit the 100 req/day free limit.';
+      'Could not reach RSS feeds. Check your connection or try refreshing.';
   }
 
   setLastUpdated();
   btn.disabled = false; btn.textContent = '↻ REFRESH';
 }
 
-// Auto-load if key already saved
-if (apiKey) fetchAll();
+fetchAll();
 </script>
 </body>
 </html>
