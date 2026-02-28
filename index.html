@@ -190,7 +190,7 @@
     </div>
     <div class="col mover">
       <div class="section-header">
-        <div class="section-label">◈ MOVING</div>
+        <div class="section-label">◈ MARKET MOVERS</div>
         <span class="count-badge" id="moverCount">—</span>
       </div>
       <div class="col-body" id="moverBody"><div class="no-articles">Loading...</div></div>
@@ -385,10 +385,32 @@ function parseXml(xmlText, feed) {
 
 async function fetchFeed(feed) {
   const encoded = encodeURIComponent(feed.url);
+  const bust    = `&_=${Date.now()}`;
 
-  // Attempt 1: rss2json
+  // Attempt 1: allorigins — fetches direct from source, no caching
   try {
-    const res  = await fetch(`${RSS2JSON}${encoded}&count=25`, { signal: AbortSignal.timeout(8000) });
+    const res = await fetch(`https://api.allorigins.win/get?url=${encoded}${bust}`, { signal: AbortSignal.timeout(10000) });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.contents) {
+        const parsed = parseXml(data.contents, feed);
+        if (parsed.length) return parsed;
+      }
+    }
+  } catch(e) {}
+
+  // Attempt 2: corsproxy.io — also fetches direct, no caching
+  try {
+    const res = await fetch(`https://corsproxy.io/?${encoded}`, { signal: AbortSignal.timeout(10000) });
+    if (res.ok) {
+      const parsed = parseXml(await res.text(), feed);
+      if (parsed.length) return parsed;
+    }
+  } catch(e) {}
+
+  // Attempt 3: rss2json — last resort, may serve cached results
+  try {
+    const res = await fetch(`${RSS2JSON}${encoded}&count=25&_=${Date.now()}`, { signal: AbortSignal.timeout(8000) });
     if (res.ok) {
       const data = await res.json();
       if (data.status === 'ok' && data.items?.length) {
@@ -402,21 +424,6 @@ async function fetchFeed(feed) {
         })).filter(a => a.title.length > 10);
       }
     }
-  } catch(e) {}
-
-  // Attempt 2: allorigins (raw XML)
-  try {
-    const res = await fetch(`https://api.allorigins.win/get?url=${encoded}`, { signal: AbortSignal.timeout(10000) });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.contents) return parseXml(data.contents, feed);
-    }
-  } catch(e) {}
-
-  // Attempt 3: corsproxy.io
-  try {
-    const res = await fetch(`https://corsproxy.io/?${encoded}`, { signal: AbortSignal.timeout(10000) });
-    if (res.ok) return parseXml(await res.text(), feed);
   } catch(e) {}
 
   return [];
@@ -485,8 +492,11 @@ async function fetchAll() {
   document.getElementById('briefingTags').innerHTML = '';
 
   const results = await Promise.all(FEEDS.map(fetchFeed));
-  const flat    = dedup(results.flat()).sort((a,b) => new Date(b.pubDate) - new Date(a.pubDate));
-
+  const flat    = dedup(results.flat()).sort((a,b) => {
+    const da = a.pubDate ? new Date(a.pubDate) : new Date(0);
+    const db = b.pubDate ? new Date(b.pubDate) : new Date(0);
+    return db - da;
+  });
   const macro    = flat.filter(a => a.category === 'macro');
   const catalyst = flat.filter(a => a.category === 'catalyst');
   const mover    = flat.filter(a => a.category === 'mover');
@@ -524,6 +534,9 @@ async function fetchAll() {
 }
 
 fetchAll();
+
+// Auto-refresh every 5 minutes
+setInterval(fetchAll, 5 * 60 * 1000);
 </script>
 </body>
 </html>
